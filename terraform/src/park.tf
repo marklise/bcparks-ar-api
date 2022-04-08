@@ -1,8 +1,8 @@
 resource "aws_lambda_function" "parkLambda" {
   function_name = "park-${random_string.postfix.result}"
 
-  filename         = "artifacts/park.zip"
-  source_code_hash = filebase64sha256("artifacts/park.zip")
+  filename         = "artifacts/parkGet.zip"
+  source_code_hash = filebase64sha256("artifacts/parkGet.zip")
 
   handler = "lambda/park/GET/index.handler"
   runtime = "nodejs14.x"
@@ -65,7 +65,7 @@ resource "aws_api_gateway_integration" "parkPostIntegration" {
 }
 
 resource "aws_lambda_permission" "parkGetPermission" {
-  statement_id  = "AllowParksARPassAPIInvoke"
+  statement_id  = "parkGetPermissionStatement"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.parkLambda.function_name
   principal     = "apigateway.amazonaws.com"
@@ -73,7 +73,7 @@ resource "aws_lambda_permission" "parkGetPermission" {
 }
 
 resource "aws_lambda_permission" "parkPostPermission" {
-  statement_id  = "AllowParksARPassAPIInvoke"
+  statement_id  = "parkPostPermissionStatement"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.parkLambda.function_name
   principal     = "apigateway.amazonaws.com"

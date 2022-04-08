@@ -83,11 +83,11 @@ resource "aws_api_gateway_integration" "subareaPostIntegration" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.subareaLambda.invoke_arn
+  uri                     = aws_lambda_function.subareaGetLambda.invoke_arn
 }
 
 resource "aws_lambda_permission" "subareaGetPermission" {
-  statement_id  = "AllowParksARPassAPIInvokeGet"
+  statement_id  = "subareaGetPermissionStatement"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.subareaGetLambda.function_name
   principal     = "apigateway.amazonaws.com"
@@ -95,7 +95,7 @@ resource "aws_lambda_permission" "subareaGetPermission" {
 }
 
 resource "aws_lambda_permission" "subareaPostPermission" {
-  statement_id  = "AllowParksARPassAPIInvokePost"
+  statement_id  = "subareaPostPermissionStatement"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.subareaPostLambda.function_name
   principal     = "apigateway.amazonaws.com"
