@@ -22,12 +22,38 @@ functions:
   ###########
   # Park
   ###########
-  park:
-    handler: lambda/park/index.handler
+  parkGet:
+    handler: lambda/park/GET/index.handler
     events:
       - http:
           method: GET
           path: /park
+          cors: true
+  parkPost:
+    handler: lambda/park/POST/index.handler
+    events:
+      - http:
+          method: POST
+          path: /park
+          cors: true
+
+  ###########
+  # SubArea
+  ###########
+  subareaGet:
+    handler: lambda/subarea/GET/index.handler
+    events:
+      - http:
+          method: GET
+          path: /subarea
+          cors: true
+
+  subareaPost:
+    handler: lambda/subarea/POST/index.handler
+    events:
+      - http:
+          method: POST
+          path: /subarea
           cors: true
 
 resources:

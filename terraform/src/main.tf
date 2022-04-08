@@ -24,7 +24,8 @@ resource "aws_api_gateway_rest_api" "apiLambda" {
 
 resource "aws_api_gateway_deployment" "apideploy" {
   depends_on = [
-    aws_api_gateway_integration.parkIntegration
+    aws_api_gateway_integration.parkGetIntegration,
+    aws_api_gateway_integration.parkPostIntegration
   ]
 
   rest_api_id = aws_api_gateway_rest_api.apiLambda.id
